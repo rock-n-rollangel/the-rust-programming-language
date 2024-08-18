@@ -1,7 +1,7 @@
 use std::io;
 
 fn is_even(number: i32) -> bool {
-    return number % 2 == 0;
+    number % 2 == 0
 }
 
 fn read_number() -> i32 {
@@ -12,10 +12,13 @@ fn read_number() -> i32 {
         .read_line(&mut input)
         .expect("could not read input");
 
-    let number: i32 = input
-        .trim()
-        .parse()
-        .expect("could not convert input to number");
+    let number: i32 = match input.trim().parse() {
+        Ok(num) => num,
+        Err(_) => {
+            println!("Invalid number, try again");
+            return read_number();
+        }
+    };
 
     return number;
 }
